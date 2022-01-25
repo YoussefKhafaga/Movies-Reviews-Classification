@@ -35,6 +35,8 @@ def data_preprocessing(data):
     data["review"] = data["review"].str.lower()
     data["review"] = data['review'].str.replace('[^\w\s]','')
     data["review"] = data['review'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stop)]))
+    data["review"] = data['review'].apply(lambda x: ' '.join(lemmatizer.lemmatize(word, pos="a") for word in x.split()))
+    data["review"] = data['review'].apply(lambda x: ' '.join(lemmatizer.lemmatize(word, pos="s") for word in x.split()))
     data["review"] = data['review'].apply(lambda x: ' '.join(lemmatizer.lemmatize(word, pos="v") for word in x.split()))
     # data["review"] = data['review'].apply(lambda x: ' '.join(lemmatizer.lemmatize(word, pos="j") for word in x.split()))
     data["review"] = data['review'].apply(lambda x: ' '.join(lemmatizer.lemmatize(word, pos="n") for word in x.split()))
